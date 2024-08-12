@@ -10,6 +10,9 @@
     map_clearing_frame_id: "base_link"
     # Rviz visualization
     slice_visualization_attachment_frame_id: "base_link"
+    map_clearing_radius_m: -1.0
+    decay_tsdf_rate_hz: 0.0
+    layer_visualization_exclusion_radius_m: 20.0
 
     static_mapper:
       esdf_slice_height: 0.09

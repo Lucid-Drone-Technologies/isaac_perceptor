@@ -31,13 +31,17 @@ def remap(i: int, name: str, identifier: str) -> list[Tuple[str, str]]:
 def add_vslam(args: lu.ArgumentContainer) -> list[Action]:
     camera_names = args.enabled_stereo_cameras_for_vslam.split(',')
 
-    camera_optical_frames = []
-    remappings = [('visual_slam/imu', '/front_stereo_imu/imu')]
-    for i, camera_name in enumerate(camera_names):
-        camera_optical_frames.append(f'{camera_name}_left_optical')
-        camera_optical_frames.append(f'{camera_name}_right_optical')
-        remappings.extend(remap(2 * i, camera_name, 'left'))
-        remappings.extend(remap(2 * i + 1, camera_name, 'right'))
+    camera_optical_frames = ['front_stereo_camera_left_optical', 'front_stereo_camera_left_optical']
+    remappings = [('visual_slam/image_0', 'front_stereo_camera/left/image_raw'),
+            ('visual_slam/camera_info_0', 'front_stereo_camera/left/camera_info'),
+            ('visual_slam/image_1', 'front_stereo_camera/right/image_raw'),
+            ('visual_slam/camera_info_1', 'front_stereo_camera/right/camera_info'),
+            ('visual_slam/imu', 'front_stereo_imu/imu')]
+    #for i, camera_name in enumerate(camera_names):
+    #    camera_optical_frames.append(f'{camera_name}_left_optical')
+    #    camera_optical_frames.append(f'{camera_name}_right_optical')
+    #    remappings.extend(remap(2 * i, camera_name, 'left'))
+    #    remappings.extend(remap(2 * i + 1, camera_name, 'right'))
 
     visual_slam_node = ComposableNode(
         name='visual_slam_node',
@@ -45,10 +49,10 @@ def add_vslam(args: lu.ArgumentContainer) -> list[Action]:
         plugin='nvidia::isaac_ros::visual_slam::VisualSlamNode',
         parameters=[{
             # Images:
-            'num_cameras': 2 * len(camera_names),
-            'min_num_images': 2 * len(camera_names),
+            'num_cameras': 2,
+            #'min_num_images': 2 * len(camera_names),
             'enable_image_denoising': False,
-            'enable_localization_n_mapping': ParameterValue(args.enable_slam_for_vslam, value_type=bool),
+            'enable_localization_n_mapping': True,
             'enable_ground_constraint_in_odometry': True,
             'enable_imu_fusion': ParameterValue(args.enable_imu_for_vslam, value_type=bool),
             'gyro_noise_density': 0.000244,
@@ -66,13 +70,13 @@ def add_vslam(args: lu.ArgumentContainer) -> list[Action]:
             'odom_frame': args.global_frame,
             'base_frame': 'base_link',
             'imu_frame': 'front_stereo_camera_imu',
-            'publish_map_to_odom_tf': False,
+            'publish_map_to_odom_tf': True,
             'invert_odom_to_base_tf': args.invert_odom_to_base_tf,
             # Visualization:
             'path_max_size': 1024,
-            'enable_slam_visualization': False,
-            'enable_landmarks_view': False,
-            'enable_observations_view': False,
+            'enable_slam_visualization': True,
+            'enable_landmarks_view': True,
+            'enable_observations_view': True,
         }],
         remappings=remappings,
     )
