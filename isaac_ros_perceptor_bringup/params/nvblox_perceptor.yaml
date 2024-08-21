@@ -26,6 +26,7 @@
       mesh_streamer_exclusion_height_m: 1.4
       mesh_streamer_exclusion_radius_m: 5.0
       mesh_bandwidth_limit_mbps: 30.0
+      esdf_integrator_max_distance_m: 0.75
 
     dynamic_mapper:
       esdf_slice_height: 0.09
