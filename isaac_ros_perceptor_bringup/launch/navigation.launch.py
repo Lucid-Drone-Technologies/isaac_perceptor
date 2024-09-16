@@ -7,7 +7,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 
 def generate_launch_description():
-    config_dir = os.path.join(get_package_share_directory('lavobot_packages'),'params/navigation')
+    config_dir = os.path.join(get_package_share_directory('isaac_ros_perceptor_bringup'),'params')
     param_file = os.path.join(config_dir,'lavobot_params.yaml')
 
     # change footprint
