@@ -16,7 +16,7 @@ def generate_launch_description():
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([get_package_share_directory('nav2_bringup'),'/launch','/navigation_launch.py']),
             launch_arguments={
-            'use_sim_time':'True',
+            'use_sim_time':'False',
             'params_file': param_file}.items(),
 
         ),
