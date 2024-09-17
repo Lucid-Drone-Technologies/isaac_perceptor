@@ -70,6 +70,20 @@ def generate_launch_description() -> LaunchDescription:
             'isaac_ros_perceptor_bringup',
             'launch/algorithms/owls_processing.launch.py',
         ))
+    
+    # navigation
+    # actions.append(
+    #     lu.include(
+    #         'isaac_ros_perceptor_bringup',
+    #         'launch/navigation.launch.py',
+    #     ))
+    
+    # # Container
+    # actions.append(
+    #     lu.component_container(
+    #         "nova_container", container_type='isolated', log_level=args.log_level))
+
+
     actions.append(
         lu.include(
             'isaac_ros_perceptor_bringup',
