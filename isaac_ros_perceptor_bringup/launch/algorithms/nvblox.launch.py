@@ -119,6 +119,6 @@ def generate_launch_description() -> LaunchDescription:
     args.add_arg('enabled_stereo_cameras_for_nvblox')
     args.add_arg('enabled_stereo_cameras_for_nvblox_people')
     args.add_arg('container_name', 'nova_container')
-    args.add_arg('global_frame', 'odom')
+    args.add_arg('global_frame', 'map')
     args.add_opaque_function(add_nvblox)
     return LaunchDescription(args.get_launch_actions())
