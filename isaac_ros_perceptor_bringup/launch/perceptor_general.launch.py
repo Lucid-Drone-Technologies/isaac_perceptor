@@ -37,7 +37,6 @@ def generate_launch_description() -> LaunchDescription:
     # }
     args.add_arg('perceptor_configuration')
     args.add_arg('global_frame', 'odom')
-    args.add_arg('nvblox_global_frame', 'map')
     args.add_arg('invert_odom_to_base_tf', False)
 
     enable_vslam = lu.dict_values_contain_substring(args.perceptor_configuration, 'cuvslam')
@@ -71,19 +70,6 @@ def generate_launch_description() -> LaunchDescription:
             'isaac_ros_perceptor_bringup',
             'launch/algorithms/owls_processing.launch.py',
         ))
-    
-    # navigation
-    # actions.append(
-    #     lu.include(
-    #         'isaac_ros_perceptor_bringup',
-    #         'launch/navigation.launch.py',
-    #     ))
-    
-    # # Container
-    # actions.append(
-    #     lu.component_container(
-    #         "nova_container", container_type='isolated', log_level=args.log_level))
-
 
     actions.append(
         lu.include(
@@ -103,7 +89,7 @@ def generate_launch_description() -> LaunchDescription:
             launch_arguments={
                 'enabled_stereo_cameras_for_nvblox': enabled_stereo_cameras_for_nvblox,
                 'enabled_stereo_cameras_for_nvblox_people': enabled_stereo_cameras_for_nvblox_people,
-                'global_frame': args.nvblox_global_frame
+                'global_frame': args.global_frame
             },
             condition=IfCondition(enable_nvblox),
         ))

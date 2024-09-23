@@ -51,7 +51,7 @@ def get_nvblox_params(camera_names: List[str], enable_people_segmentation: bool,
     parameters.append(lu.get_path('nvblox_examples_bringup', 'config/nvblox/nvblox_base.yaml'))
     parameters.append(lu.get_path('isaac_ros_perceptor_bringup', 'params/nvblox_perceptor.yaml'))
     parameters.append({'num_cameras': len(camera_names)})
-    parameters.append({'global_frame': global_frame})
+    parameters.append({'global_frame': "map"})
     if enable_people_segmentation:
         parameters.append(
             lu.get_path('nvblox_examples_bringup',
@@ -119,6 +119,6 @@ def generate_launch_description() -> LaunchDescription:
     args.add_arg('enabled_stereo_cameras_for_nvblox')
     args.add_arg('enabled_stereo_cameras_for_nvblox_people')
     args.add_arg('container_name', 'nova_container')
-    args.add_arg('global_frame', 'map')
+    args.add_arg('global_frame', 'odom')
     args.add_opaque_function(add_nvblox)
     return LaunchDescription(args.get_launch_actions())

@@ -10,29 +10,14 @@ from isaac_ros_launch_utils.all_types import *
 def generate_launch_description():
     
     config_dir = os.path.join(get_package_share_directory('isaac_ros_perceptor_bringup'),'params')
-    param_file = os.path.join(config_dir,'lavobot_params.yaml')
-    
-    # actions = args.get_launch_actions()
-    # # Container
-    # actions.append(
-    #     lu.component_container(
-    #         "nova_container", container_type='isolated', log_level=args.log_level))
+    param_file = os.path.join(config_dir,'lavobot_nav2.yaml')
 
     return LaunchDescription([
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([get_package_share_directory('nav2_bringup'),'/launch','/navigation_launch.py']),
             launch_arguments={
             'use_sim_time':'false',
-            # 'container_name': "nova_container",
-            # 'use_composition': 'True',
             'params_file': param_file}.items(),
 
         ),
-        # Node(
-        #     package='tf2_ros',
-        #     executable='static_transform_publisher',
-        #     name='map_odom_broadcaster',
-        #     output='screen',
-        #     arguments=['0', '0', '0', '0', '0', '0', 'map', 'odom']
-        # )
     ])
