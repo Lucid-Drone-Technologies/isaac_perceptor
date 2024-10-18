@@ -54,6 +54,7 @@ def add_vslam(args: lu.ArgumentContainer) -> list[Action]:
             'enable_image_denoising': False,
             'enable_localization_n_mapping': True,
             'enable_ground_constraint_in_odometry': True,
+            'enable_ground_constraint_in_slam': True,
             'enable_imu_fusion': ParameterValue(args.enable_imu_for_vslam, value_type=bool),
             'gyro_noise_density': 0.000244,
             'gyro_random_walk': 0.000019393,
